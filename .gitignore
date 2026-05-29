@@ -47,5 +47,4 @@ env/
 .cache/
 
 # Local Model artifacts (since we generate them locally)
-# Keep this comment to clarify why they are generated
-# models/
+models/

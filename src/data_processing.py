@@ -1,18 +1,14 @@
 import os
-import kagglehub
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 def download_and_load_data():
-    """Downloads the Kaggle loan-default dataset and loads it as a pandas DataFrame."""
-    print("Downloading dataset using kagglehub...")
-    path = kagglehub.dataset_download("nikhil1e9/loan-default")
-    csv_file = [f for f in os.listdir(path) if f.endswith('.csv')][0]
-    full_path = os.path.join(path, csv_file)
-    print(f"Loading data from: {full_path}")
-    df = pd.read_csv(full_path)
+    """Downloads the Kaggle loan-default dataset (via a reliable raw GitHub mirror) and loads it as a pandas DataFrame."""
+    url = "https://raw.githubusercontent.com/Pankaj-Str/Complete-Python-Mastery/refs/heads/main/53%20DataSet/Loan_default.csv"
+    print(f"Loading data from URL mirror: {url}")
+    df = pd.read_csv(url)
     return df
 
 class LoanDataPreprocessor:
