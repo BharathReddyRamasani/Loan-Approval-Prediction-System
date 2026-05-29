@@ -74,7 +74,18 @@ st.markdown("""
 # Helper functions to load models and cached assets
 @st.cache_resource
 def load_ml_assets():
-    """Loads and caches the model, scaler, clustering, and PCA estimators."""
+    """Loads and caches the model, scaler, clustering, and PCA estimators. Trains them if missing."""
+    model_path = "models/preprocessor.pkl"
+    if not os.path.exists(model_path):
+        try:
+            # We use st.write/spinner inside cache_resource which is allowed for notification
+            with st.spinner("🤖 Pre-trained models not found. Running the machine learning pipeline to train them on the fly (takes ~15s)..."):
+                import train_pipeline
+                train_pipeline.main()
+        except Exception as e:
+            st.error(f"Failed to train models on the fly: {e}")
+            return None, None, None, None, None
+            
     try:
         preprocessor = joblib.load("models/preprocessor.pkl")
         lr_model = joblib.load("models/logistic_regression.pkl")
@@ -83,7 +94,7 @@ def load_ml_assets():
         pca_model = joblib.load("models/pca.pkl")
         return preprocessor, lr_model, rf_model, kmeans_model, pca_model
     except Exception as e:
-        st.error(f"Error loading models. Have you run the training pipeline? Details: {e}")
+        st.error(f"Error loading models: {e}")
         return None, None, None, None, None
 
 @st.cache_data
