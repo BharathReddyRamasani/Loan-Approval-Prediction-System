@@ -60,8 +60,10 @@ def main():
     # Save K-Means model
     save_artifact(kmeans_model, "kmeans.pkl")
     
-    # Build cluster profiles based on original training data
-    cluster_profiles = get_cluster_profiles(X_train, train_clusters)
+    # Build cluster profiles based on original training data (including Default label for segment default rates)
+    X_train_with_target = X_train.copy()
+    X_train_with_target['Default'] = y_train
+    cluster_profiles = get_cluster_profiles(X_train_with_target, train_clusters)
     print("Cluster Profiles Generated.")
     print(cluster_profiles)
     
