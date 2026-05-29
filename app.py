@@ -781,7 +781,7 @@ def main():
                     y='Feature',
                     orientation='h',
                     color='Weight',
-                    color_continuous_scale='Coolwarm',
+                    color_continuous_scale='RdBu',
                     title=f'Top 15 Feature Loading Coefficients for {pc_choice}',
                     labels={'Weight': 'Loading Weight Coefficient', 'Feature': 'Original Feature'}
                 )
