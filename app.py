@@ -716,7 +716,7 @@ def main():
         
         if metrics and 'pca_explained_variance' in metrics:
             pca_var = metrics['pca_explained_variance']
-            pca_loadings = pd.DataFrame(metrics['pca_loadings'])
+            pca_loadings = pd.DataFrame(metrics['pca_loadings']).T
             
             col_var, col_load = st.columns([4, 5])
             
