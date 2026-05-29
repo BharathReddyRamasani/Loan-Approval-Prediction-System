@@ -430,8 +430,7 @@ def main():
                         symbol='star',
                         size=15,
                         color='#ffffff',
-                        line=dict(color='#3b82f6', width=2),
-                        shadow=dict(color='#3b82f6', width=10)
+                        line=dict(color='#3b82f6', width=2)
                     ),
                     name='Current Applicant',
                     hovertext=f"Current Applicant:<br>FICO: {credit_score}<br>Income: ${income:,.0f}<br>Loan: ${loan_amount:,.0f}"
