@@ -232,7 +232,7 @@ def main():
     """, unsafe_allow_html=True)
     
     # Tab Layout
-    tab1, tab2, tab3, tab4 = st.tabs([
+    tab_calc, tab_segments, tab_performance, tab_pca = st.tabs([
         "🔮 Decision Calculator", 
         "👥 Customer Segments", 
         "📊 Model Performance", 
@@ -242,7 +242,7 @@ def main():
     # ----------------------------------------------------
     # TAB 1: DECISION CALCULATOR
     # ----------------------------------------------------
-    with tab1:
+    with tab_calc:
         st.subheader("Predictive Credit Assessment Sandbox")
         st.markdown("Fill out the applicant details below to run real-time classification, default risk scoring, and customer segment profiling.")
         
@@ -385,7 +385,7 @@ def main():
                 margin=dict(l=20, r=20, t=40, b=10),
                 height=220
             )
-            st.plotly_chart(fig_gauge, use_container_width=True)
+            st.plotly_chart(fig_gauge, width="stretch")
             
             # Customer Segment Profiling (K-Means Output)
             st.markdown(f"""
@@ -446,12 +446,12 @@ def main():
                     xaxis=dict(showgrid=False, zeroline=False, showticklabels=False, title='Component 1'),
                     yaxis=dict(showgrid=False, zeroline=False, showticklabels=False, title='Component 2')
                 )
-                st.plotly_chart(fig_pca_proj, use_container_width=True)
+                st.plotly_chart(fig_pca_proj, width="stretch")
             
     # ----------------------------------------------------
     # TAB 2: CUSTOMER SEGMENTS (K-MEANS)
     # ----------------------------------------------------
-    with tab3:
+    with tab_segments:
         st.subheader("Customer Segmentation & Demographics Analysis")
         st.markdown("We segment the 255k borrower database using K-Means Clustering ($K=4$) to capture distinct customer profiles.")
         
@@ -515,7 +515,7 @@ def main():
                     font={'color': "#f8fafc"},
                     margin=dict(l=20, r=20, t=50, b=20)
                 )
-                st.plotly_chart(fig_inc_loan, use_container_width=True)
+                st.plotly_chart(fig_inc_loan, width="stretch")
                 
             with col_chart2:
                 # Correlation between FICO and default rates by cluster
@@ -535,7 +535,7 @@ def main():
                     font={'color': "#f8fafc"},
                     margin=dict(l=20, r=20, t=50, b=20)
                 )
-                st.plotly_chart(fig_fico_def, use_container_width=True)
+                st.plotly_chart(fig_fico_def, width="stretch")
                 
             # 3D Cluster Visualizer using the PCA subset
             if pca_subset is not None:
@@ -567,12 +567,12 @@ def main():
                     height=500,
                     legend=dict(yanchor="top", y=0.9, xanchor="left", x=0.1)
                 )
-                st.plotly_chart(fig_3d, use_container_width=True)
+                st.plotly_chart(fig_3d, width="stretch")
                 
     # ----------------------------------------------------
     # TAB 3: MODEL PERFORMANCE & METRICS
     # ----------------------------------------------------
-    with tab2:
+    with tab_performance:
         st.subheader("Model Validation & Explainability Metrics")
         st.markdown("We assess and compare the validation metrics for **Logistic Regression** and **Random Forest** models side-by-side.")
         
@@ -637,9 +637,9 @@ def main():
                     font={'color': "#f8fafc"},
                     margin=dict(l=20, r=20, t=50, b=20),
                     yaxis={'categoryorder': 'total ascending'},
-                    coloraxis_showlegend=False
+                    coloraxis_showscale=False
                 )
-                st.plotly_chart(fig_rf_imp, use_container_width=True)
+                st.plotly_chart(fig_rf_imp, width="stretch")
                 
             with col_imp2:
                 # LR Importance
@@ -661,7 +661,7 @@ def main():
                     margin=dict(l=20, r=20, t=50, b=20),
                     yaxis={'categoryorder': 'total ascending'}
                 )
-                st.plotly_chart(fig_lr_imp, use_container_width=True)
+                st.plotly_chart(fig_lr_imp, width="stretch")
                 
             # Confusion Matrix displays
             st.markdown("<br>##### 🔲 Confusion Matrices", unsafe_allow_html=True)
@@ -685,9 +685,9 @@ def main():
                 fig_cm_lr.update_layout(
                     paper_bgcolor='rgba(30, 41, 59, 0.2)',
                     font={'color': "#f8fafc"},
-                    coloraxis_showlegend=False
+                    coloraxis_showscale=False
                 )
-                st.plotly_chart(fig_cm_lr, use_container_width=True)
+                st.plotly_chart(fig_cm_lr, width="stretch")
                 
             with col_cm2:
                 # Plotly heatmap for RF confusion matrix
@@ -703,14 +703,14 @@ def main():
                 fig_cm_rf.update_layout(
                     paper_bgcolor='rgba(30, 41, 59, 0.2)',
                     font={'color': "#f8fafc"},
-                    coloraxis_showlegend=False
+                    coloraxis_showscale=False
                 )
-                st.plotly_chart(fig_cm_rf, use_container_width=True)
+                st.plotly_chart(fig_cm_rf, width="stretch")
                 
     # ----------------------------------------------------
     # TAB 4: PCA DETAIL
     # ----------------------------------------------------
-    with tab4:
+    with tab_pca:
         st.subheader("Feature Dimensionality Reduction (PCA) Analysis")
         st.markdown("We perform Principal Component Analysis (PCA) to reduce 20+ scaled and one-hot encoded variables into orthogonal components. This helps us visualize clusters and discover the principal vectors of borrower variance.")
         
@@ -758,7 +758,7 @@ def main():
                     margin=dict(l=20, r=20, t=50, b=20),
                     legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
                 )
-                st.plotly_chart(fig_var, use_container_width=True)
+                st.plotly_chart(fig_var, width="stretch")
                 
             with col_load:
                 st.markdown("##### 🔬 Feature Loadings (Weights)")
@@ -791,9 +791,9 @@ def main():
                     font={'color': "#f8fafc"},
                     margin=dict(l=20, r=20, t=50, b=20),
                     yaxis={'categoryorder': 'total ascending'},
-                    coloraxis_showlegend=False
+                    coloraxis_showscale=False
                 )
-                st.plotly_chart(fig_loadings, use_container_width=True)
+                st.plotly_chart(fig_loadings, width="stretch")
 
 if __name__ == "__main__":
     main()
